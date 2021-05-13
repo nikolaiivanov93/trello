@@ -2,8 +2,8 @@
     <div>
         <div class="note__wrapper">
             <div class="note__input">
-                <span class="note__name">Task name: </span><input/>
-                <span class="note__text">Note text: </span><textarea class="note__txt"/>
+                <span class="note__name">Task name: </span><input v-model="name"/>
+                <span class="note__text">Note text: </span><textarea v-model="text" class="note__txt"/>
             </div>
             <div class="note__priority">Priority</div>
             <div class="note__priority_radio">
@@ -36,7 +36,7 @@
                 <b-calendar v-model="value" :min="min" :max="max" locale="en"></b-calendar>
             </div>
             <div>
-                <button class="note__btn">Add</button>
+                <button @click="setTask" class="note__btn">Add</button>
                 <button class="note__btn">Clear</button>
             </div>
         </div>
@@ -76,9 +76,25 @@ export default {
             ],
             value: '',
             min: minDate,
-            max: maxDate
+            max: maxDate,
+            task: {},
+            name: "",
+            text: "",
         }
     },
+    methods: {
+        setTask() {
+            this.task.priority = this.selectedPriority;
+            this.task.group = this.selectedGroup;
+            this.task.date = this.value;
+            this.task.name = this.name;
+            this.task.text = this.text;
+            this.$emit('setGroup', this.task);
+            // this.$emit('setOptions', this.optionsGroup);
+            console.log(this.task)
+            // this.$emit('setGroup', this.selectedGroup);
+        }
+    }
 }
 
 </script>
