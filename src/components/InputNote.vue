@@ -77,19 +77,32 @@ export default {
             value: '',
             min: minDate,
             max: maxDate,
-            task: {},
+            task: [],
             name: "",
             text: "",
         }
     },
     methods: {
         setTask() {
-            this.task.priority = this.selectedPriority;
-            this.task.group = this.selectedGroup;
-            this.task.date = this.value;
-            this.task.name = this.name;
-            this.task.text = this.text;
+            // this.task.priority = this.selectedPriority;
+            // this.task.group = this.selectedGroup;
+            // this.task.date = this.value;
+            // this.task.name = this.name;
+            // this.task.text = this.text;
+            // this.task.push(info);
+            this.task.push({
+                priority: this.selectedPriority,
+                group: this.selectedGroup,
+                date: this.value,
+                name: this.name,
+                text: this.text});
+            console.log('tasktask',this.task)
             this.$emit('setGroup', this.task);
+            this.name = '';
+            this.text = '';
+            this.selectedPriority = [];
+            this.selectedGroup = [];
+            this.value = '';
             // this.$emit('setOptions', this.optionsGroup);
             console.log(this.task)
             // this.$emit('setGroup', this.selectedGroup);

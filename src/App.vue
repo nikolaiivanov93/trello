@@ -2,7 +2,14 @@
   <div id="app">
     <InputNote
     @setGroup="setGroup"/>
-    <Group :task="task"/>
+    <div class="app__group">
+      <Group v-for="(data, index) in task" 
+      :key="index" 
+      :data="data"
+      :index="index"
+      :task="task"
+      @doneTask="doneTask(index)"/>
+    </div>
   </div>
 </template>
 
@@ -25,12 +32,17 @@ export default {
       console.log('active');
     }
     return {
-      task: {},
+      task: [],
+      deleteTask: Number,
     }
   },
   methods: {
     setGroup(data) {
       this.task = data;
+    },
+    doneTask(index) {
+      this.task.splice(index, 1);
+
     },
   }
 }
@@ -43,5 +55,10 @@ export default {
   margin: 0 auto;
   padding: 50px 0;
   display: flex;
+}
+.app__group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
