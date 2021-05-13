@@ -1,9 +1,8 @@
 <template>
     <div class="group">
         <div class="group__wrapper">
-            
-            
-            <div class="group__block">
+            <div :style="{ backgroundColor: isColor }" class="group__block">
+                <div class="group__option">{{ data.group }}</div>
                 <div class="group__list-item">
                     <div class="group__name">{{ data.name }}</div>
                     <div class="group__text">{{ data.text }}</div>
@@ -25,12 +24,12 @@
             task: Object,
             newTask: null,
             data: String,
-            index: Number
         },
         data() {
             return {
                 checkTask: false,
                 taskInfo: {},
+                isColor: "",
                 options: [
                     {group: "Work"},
                     {group: "Home"},
@@ -39,42 +38,21 @@
                 ],
             }
         },
-        mounted() {
-            if (localStorage.getItem('task')) {
-                try {
-                    this.task = JSON.parse(localStorage.getItem('task'));
-                } catch(e) {
-                    localStorage.removeItem('task');
-                }
-            }
-        },
         watch: {
             task() {
                 if(this.task.group !== null) {
                     this.checkTask = true;
                     this.taskInfo.name = this.task.name;
                 }
+                
+            },
+            data() {
+                if (this.data.group == "Wait") {
+                    this.isColor = "rgba(0, 123, 255, 0.7)"
+                }
             }
         },
         methods: {
-            
-            // addTask() {
-            //     if(!this.newTask) {
-            //         return;
-            //     }
-
-            //     this.task.push(this.newTask);
-            //     this.newTask = '';
-            //     this.saveTask();
-            // },
-            // removeTask() {
-            //     this.task.splice(x, 1);
-            //     this.saveTask();
-            // },
-            // saveTask() {
-            //     const parsed = JSON.stringify(this.task);
-            //     localStorage.setItem('task', parsed);
-            // },
             done() {
                 this.$emit('doneTask');
             }
@@ -84,12 +62,12 @@
 
 <style>
 .group {
-    margin-bottom: 20px;
+    margin-top: 20px;
 }
 .group__wrapper {
     width: 400px;
     height: 100%;
-    margin-left: 40px;
+    /* margin-left: 40px; */
    /*  border: 1px Solid #000; */
 }
 .group__block {
@@ -97,7 +75,7 @@
     min-height: 50px;
     padding-bottom: 20px;
     background-color: rgba(0, 123, 255, 0.1);
-    border-radius: 10px;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -121,9 +99,10 @@
     justify-content: space-between;
     padding-bottom: 20px;
 }
-.group__options {
+.group__option {
     font-size: 22px;
     font-weight: 700;
+    color: #007bff;
 }
 .group__name {
     font-weight: 600;

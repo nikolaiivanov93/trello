@@ -84,12 +84,6 @@ export default {
     },
     methods: {
         setTask() {
-            // this.task.priority = this.selectedPriority;
-            // this.task.group = this.selectedGroup;
-            // this.task.date = this.value;
-            // this.task.name = this.name;
-            // this.task.text = this.text;
-            // this.task.push(info);
             this.task.push({
                 priority: this.selectedPriority,
                 group: this.selectedGroup,
@@ -104,9 +98,14 @@ export default {
             this.selectedGroup = [];
             this.value = '';
             // this.$emit('setOptions', this.optionsGroup);
-            console.log(this.task)
+            console.log(this.task);
             // this.$emit('setGroup', this.selectedGroup);
-        }
+            // saveTask();
+        },
+        // saveTask() {
+        //     const parsed = JSON.stringify(this.task);
+        //     localStorage.setItem('task', parsed);
+        // },
     }
 }
 
